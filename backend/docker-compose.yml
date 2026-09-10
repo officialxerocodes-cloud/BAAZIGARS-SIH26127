@@ -1,0 +1,125 @@
+name: pune-anpr
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    volumes: [redisdata:/data]
+    healthcheck: { test: ["CMD", "redis-cli", "ping"], interval: 5s, retries: 5 }
+    networks: [anpr-net]
+
+  timescale:
+    image: timescale/timescaledb-ha:pg16
+    environment:
+      POSTGRES_DB: anpr
+      POSTGRES_USER: anpr
+      POSTGRES_PASSWORD: anpr
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/home/postgres/pgdata
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro,z
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U anpr -d anpr"], interval: 5s, retries: 10 }
+    networks: [anpr-net]
+
+  anpr:
+    build: ./anpr
+    deploy: { resources: { reservations: { devices: [{ driver: nvidia, count: 1, capabilities: [gpu] }] } } }
+    environment:
+      ANPR_BATCH_WINDOW_MS: 50
+      ANPR_BATCH_MAX: 32
+      ANPR_MODEL_DETECTOR: yolo-v9-t-384-license-plate-end2end
+      ANPR_MODEL_OCR: cct-xs-v2-global-model
+    ports: ["8001:8001"]
+    volumes: [crops:/data/crops]
+    depends_on: { redis: { condition: service_healthy } }
+    healthcheck: { test: ["CMD", "curl", "-f", "http://localhost:8001/healthz"], interval: 10s, retries: 5 }
+    networks: [anpr-net]
+    profiles: [anpr]
+
+  anpr-stub:
+    build: { context: ., dockerfile: anpr_stub/Dockerfile }
+    environment: {}
+    ports: ["8001:8001"]
+    healthcheck: { test: ["CMD", "curl", "-f", "http://localhost:8001/healthz"], interval: 10s, retries: 5 }
+    networks: [anpr-net]
+    profiles: [anpr-stub]
+
+  ingest:
+    build: { context: ., dockerfile: ingest/Dockerfile }
+    environment: { REDIS_URL: redis://redis:6379, ANPR_URL: http://anpr:8001, DATABASE_URL: postgresql://anpr:anpr@timescale:5432/anpr }
+    ports: ["8000:8000"]
+    depends_on: { redis: { condition: service_healthy }, timescale: { condition: service_healthy } }
+    healthcheck: { test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"], interval: 10s, retries: 5 }
+    networks: [anpr-net]
+
+  matcher:
+    build: { context: ., dockerfile: workers/Dockerfile }
+    command: python -m workers.matcher
+    environment: { REDIS_URL: redis://redis:6379, DATABASE_URL: postgresql://anpr:anpr@timescale:5432/anpr }
+    volumes: [crops:/data/crops]
+    depends_on: { redis: { condition: service_healthy }, timescale: { condition: service_healthy } }
+    deploy: { replicas: 1 }
+    networks: [anpr-net]
+
+  analytics:
+    build: { context: ., dockerfile: workers/Dockerfile }
+    command: python -m workers.analytics
+    environment: { REDIS_URL: redis://redis:6379, DATABASE_URL: postgresql://anpr:anpr@timescale:5432/anpr }
+    depends_on: { redis: { condition: service_healthy } }
+    networks: [anpr-net]
+
+  alerts:
+    build: { context: ., dockerfile: workers/Dockerfile }
+    command: python -m workers.alerts
+    environment: { REDIS_URL: redis://redis:6379, DATABASE_URL: postgresql://anpr:anpr@timescale:5432/anpr }
+    depends_on: { redis: { condition: service_healthy } }
+    networks: [anpr-net]
+
+  api:
+    build: { context: ., dockerfile: api/Dockerfile }
+    environment: { REDIS_URL: redis://redis:6379, DATABASE_URL: postgresql://anpr:anpr@timescale:5432/anpr }
+    volumes: [crops:/data/crops:ro]
+    ports: ["8002:8002"]
+    depends_on: { redis: { condition: service_healthy }, timescale: { condition: service_healthy } }
+    healthcheck: { test: ["CMD", "curl", "-f", "http://localhost:8002/healthz"], interval: 10s, retries: 5 }
+    networks: [anpr-net]
+
+  sim:
+    build: { context: ., dockerfile: sim/Dockerfile }
+    environment:
+      REDIS_URL: redis://redis:6379
+      # Engine swap without editing this file:
+      #   stub (dev default): ANPR_URL=http://anpr-stub:8001
+      #   real engine:        ANPR_URL=http://anpr:8001
+      ANPR_URL: ${ANPR_URL:-http://anpr-stub:8001}
+      INGEST_URL: http://ingest:8000
+      DATABASE_URL: postgresql://anpr:anpr@timescale:5432/anpr
+      SIM_RATE: 60
+      SIM_SEED: 42
+      SIM_DURATION: 3600
+      NET_FILE: /data/delhi.net.xml
+    volumes:
+      - ./sim/data:/data:ro,z
+      - crops:/data/crops
+    depends_on: { redis: { condition: service_healthy }, timescale: { condition: service_healthy }, ingest: { condition: service_healthy } }
+    # NOTE: no hard gate on the ANPR engine here — sim tolerates ANPR
+    # connection errors per crossing (post_err counter). Select the engine
+    # via ANPR_URL / compose profiles (anpr <-> anpr-stub); see README.
+    networks: [anpr-net]
+    profiles: [sim]
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports: ["5173:80"]
+    depends_on: [api]
+    networks: [anpr-net]
+
+volumes:
+  pgdata:
+  redisdata:
+  crops:
+
+networks:
+  anpr-net: { driver: bridge }

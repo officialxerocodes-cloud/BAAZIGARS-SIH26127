@@ -1,0 +1,45 @@
+# Same-origin API access for the served build (mirrors the Vite dev proxy):
+# the dashboard calls /api and /live on its own origin, nginx forwards to api:8002.
+#
+# NOTE: no static `upstream` block on purpose. A static upstream resolves
+# `api` once at nginx start and caches the IP forever, so every api-container
+# recreate (new IP) silently 502s the whole dashboard until nginx reloads.
+# A variable + a runtime resolver re-resolves per request (10s cache),
+# surviving backend redeploys. ${RESOLVER} is filled at container start by
+# docker-entrypoint.d/10-resolver.sh from /etc/resolv.conf, which works on
+# both Podman (aardvark-dns gateway, e.g. 10.89.0.1) and Docker (127.0.0.11).
+# Override with RESOLVER=... env if your runtime differs.
+resolver ${RESOLVER} valid=10s ipv6=off;
+
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location /api/ {
+        set $upstream_api api:8002;
+        proxy_pass http://$upstream_api;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location = /live {
+        set $upstream_api api:8002;
+        proxy_pass http://$upstream_api;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # ES module workers (maplibre-gl-worker.*.mjs) require a JavaScript MIME
+    # type; the default mime.types serves .mjs as octet-stream, which
+    # browsers refuse for workers. Missing files 404 (no SPA fallback).
+    location ~* \.mjs$ {
+        default_type text/javascript;
+        try_files $uri =404;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

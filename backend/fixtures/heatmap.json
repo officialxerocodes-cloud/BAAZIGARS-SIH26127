@@ -1,0 +1,152 @@
+[
+  {
+    "camera_id": "CAM_002",
+    "window_start": "2026-09-06T09:00",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_004",
+    "window_start": "2026-09-06T09:02",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_002",
+    "window_start": "2026-09-06T09:04",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_009",
+    "window_start": "2026-09-06T09:06",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_001",
+    "window_start": "2026-09-06T09:08",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_004",
+    "window_start": "2026-09-06T09:10",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_009",
+    "window_start": "2026-09-06T09:12",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_009",
+    "window_start": "2026-09-06T09:14",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_010",
+    "window_start": "2026-09-06T09:16",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_001",
+    "window_start": "2026-09-06T09:18",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_006",
+    "window_start": "2026-09-06T09:20",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_006",
+    "window_start": "2026-09-06T09:22",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_002",
+    "window_start": "2026-09-06T09:24",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_010",
+    "window_start": "2026-09-06T09:26",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_008",
+    "window_start": "2026-09-06T09:28",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_007",
+    "window_start": "2026-09-06T09:30",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_010",
+    "window_start": "2026-09-06T09:32",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_002",
+    "window_start": "2026-09-06T09:34",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_005",
+    "window_start": "2026-09-06T09:36",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_002",
+    "window_start": "2026-09-06T09:38",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_006",
+    "window_start": "2026-09-06T09:40",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_004",
+    "window_start": "2026-09-06T09:42",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_002",
+    "window_start": "2026-09-06T09:44",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_009",
+    "window_start": "2026-09-06T09:46",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_008",
+    "window_start": "2026-09-06T09:48",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_009",
+    "window_start": "2026-09-06T09:50",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_001",
+    "window_start": "2026-09-06T09:52",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_006",
+    "window_start": "2026-09-06T09:54",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_004",
+    "window_start": "2026-09-06T09:56",
+    "count": 1
+  },
+  {
+    "camera_id": "CAM_006",
+    "window_start": "2026-09-06T09:58",
+    "count": 1
+  }
+]

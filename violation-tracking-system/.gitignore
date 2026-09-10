@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# YOLO/ML Specific
+runs/
+models/plate_detector*/
+models/fgvd/
+weights/
+*.pt
+!yolov8n.pt
+!yolov8s.pt
+
+# Data
+datasets/
+data/logs/
+data/snapshots/
+data/test_videos/
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Misc
+.env
+*.tmp

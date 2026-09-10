@@ -1,0 +1,30 @@
+# Python virtualenvs
+.venv/
+.venv-sumo/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+
+# Env / secrets
+.env
+.env.local
+
+# Runtime volumes & artefacts
+pgdata/
+redisdata/
+crops/
+data/
+
+# Generated SUMO artefacts (regen via scripts/fetch_city_osm.py + netconvert)
+*.net.xml
+*.rou.xml
+*.tar
+
+# Editors
+.idea/
+.vscode/
+.opencode/

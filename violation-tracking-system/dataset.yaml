@@ -1,0 +1,12 @@
+path: D:/violation-tracking-system/models/fgvd/IDD_FGVD/IDD_FGVD
+train: train/images
+val: val/images
+test: test/images
+names:
+  0: car
+  1: motorcycle
+  2: scooter
+  3: truck
+  4: autorickshaw
+  5: bus
+  6: mini-bus

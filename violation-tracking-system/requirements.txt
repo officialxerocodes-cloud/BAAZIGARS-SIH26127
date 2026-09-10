@@ -1,0 +1,9 @@
+torch
+torchvision
+ultralytics
+supervision
+opencv-python-headless
+paddleocr
+paddlepaddle
+fastapi
+uvicorn
