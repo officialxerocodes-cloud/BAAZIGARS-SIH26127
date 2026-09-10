@@ -82,3 +82,6 @@ Live captures from the running system (Delhi CP–South Ex simulation, 60 virtua
 
 ### Analytics page — OD flows, congestion, camera health
 ![Analytics page](screenshots/06-analytics-page.png)
+
+### ANPR service — vehicle detection and plate OCR on real footage (rig average above 90%)
+![ANPR OCR detection](screenshots/07-anpr-ocr-detection.png)
