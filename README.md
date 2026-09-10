@@ -2,7 +2,31 @@
 # SIH 2026 Project Repository — TRINETRA
  
 This repository contains our submission for SIH 2026.
+
+📊 **Idea Presentation:** [SIH2025-IDEA-Presentation-Format.pptx](presentation/SIH2025-IDEA-Presentation-Format.pptx)
+
+---
  
+## Demo — live captures from the running system
+
+Delhi CP–South Ex simulation, 60 virtual cameras.
+
+| Live dashboard — city breathing, alert ticker, honest LIVE badges | Plate trajectory — one plate traced across the ANPR grid |
+|---|---|
+| ![Live dashboard](screenshots/01-live-dashboard.png) | ![Plate trajectory, live trace](screenshots/02-trajectory-live-trace.png) |
+
+| Area sweep — every vehicle in scope, ranked, one click retraces any of them | Detection evidence — per-hop timestamps, confidence bars, sweep-scope insight |
+|---|---|
+| ![Area sweep ranking](screenshots/03-area-sweep-ranking.png) | ![Detection evidence](screenshots/04-detection-evidence.png) |
+
+| Blacklist admin + alerts inbox | Analytics page — OD flows, congestion, camera health |
+|---|---|
+| ![Blacklist admin](screenshots/05-blacklist-admin.png) | ![Analytics page](screenshots/06-analytics-page.png) |
+
+| ANPR service — vehicle detection and plate OCR on real footage (rig average above 90%) |
+|---|
+| ![ANPR OCR detection](screenshots/07-anpr-ocr-detection.png) |
+
 ---
  
 ## 1. Project Information
@@ -60,28 +84,3 @@ This repository contains our submission for SIH 2026.
 - **Dev Tools:** Python venv, Node.js 22, custom smoke-test and load-test scripts (`smoke.sh`, `replay_gun.py`, `fake_camera.py`)
 
 ---
-
-## 6. Demo Screenshots
-
-Live captures from the running system (Delhi CP–South Ex simulation, 60 virtual cameras).
-
-### Live dashboard — city breathing, alert ticker, honest LIVE badges
-![Live dashboard](screenshots/01-live-dashboard.png)
-
-### Plate trajectory — one plate traced across the ANPR grid
-![Plate trajectory, live trace](screenshots/02-trajectory-live-trace.png)
-
-### Area sweep — every vehicle in scope, ranked, one click retraces any of them
-![Area sweep ranking](screenshots/03-area-sweep-ranking.png)
-
-### Detection evidence — per-hop timestamps, confidence bars, sweep-scope insight
-![Detection evidence](screenshots/04-detection-evidence.png)
-
-### Blacklist admin + alerts inbox
-![Blacklist admin](screenshots/05-blacklist-admin.png)
-
-### Analytics page — OD flows, congestion, camera health
-![Analytics page](screenshots/06-analytics-page.png)
-
-### ANPR service — vehicle detection and plate OCR on real footage (rig average above 90%)
-![ANPR OCR detection](screenshots/07-anpr-ocr-detection.png)
