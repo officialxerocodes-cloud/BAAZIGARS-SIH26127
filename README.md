@@ -3,7 +3,7 @@
  
 This repository contains our submission for SIH 2026.
 
-📊 **Idea Presentation:** [SIH2025-IDEA-Presentation-Format.pptx](presentation/SIH2025-IDEA-Presentation-Format.pptx)
+📊 **Idea Presentation:** [BAAZIGARS_SIH2026_PRESENTATION.pptx](presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx)
 
 ---
  
@@ -140,7 +140,7 @@ BAAZIGARS-SIH26127/
 
 The SIH idea presentation is committed in this repo:
 
-[presentation/SIH2025-IDEA-Presentation-Format.pptx](presentation/SIH2025-IDEA-Presentation-Format.pptx)
+[presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx](presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx)
 
 ---
 
