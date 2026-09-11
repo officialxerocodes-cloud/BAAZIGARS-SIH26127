@@ -13,19 +13,19 @@ Delhi CP–South Ex simulation, 60 virtual cameras.
 
 | Live dashboard — city breathing, alert ticker, honest LIVE badges | Plate trajectory — one plate traced across the ANPR grid |
 |---|---|
-| ![Live dashboard](screenshots/01-live-dashboard.png) | ![Plate trajectory, live trace](screenshots/02-trajectory-live-trace.png) |
+| ![Live dashboard](assets/screenshots/01-live-dashboard.png) | ![Plate trajectory, live trace](assets/screenshots/02-trajectory-live-trace.png) |
 
 | Area sweep — every vehicle in scope, ranked, one click retraces any of them | Detection evidence — per-hop timestamps, confidence bars, sweep-scope insight |
 |---|---|
-| ![Area sweep ranking](screenshots/03-area-sweep-ranking.png) | ![Detection evidence](screenshots/04-detection-evidence.png) |
+| ![Area sweep ranking](assets/screenshots/03-area-sweep-ranking.png) | ![Detection evidence](assets/screenshots/04-detection-evidence.png) |
 
 | Blacklist admin + alerts inbox | Analytics page — OD flows, congestion, camera health |
 |---|---|
-| ![Blacklist admin](screenshots/05-blacklist-admin.png) | ![Analytics page](screenshots/06-analytics-page.png) |
+| ![Blacklist admin](assets/screenshots/05-blacklist-admin.png) | ![Analytics page](assets/screenshots/06-analytics-page.png) |
 
 | ANPR service — vehicle detection and plate OCR on real footage (rig average above 90%) |
 |---|
-| ![ANPR OCR detection](screenshots/07-anpr-ocr-detection.png) |
+| ![ANPR OCR detection](assets/screenshots/07-anpr-ocr-detection.png) |
 
 ---
  
@@ -87,7 +87,7 @@ Delhi CP–South Ex simulation, 60 virtual cameras.
 
 ## 6. Architecture
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the full guide.
+See [docs/architecture.md](docs/architecture.md) for the full guide.
 
 ```
 Camera / SUMO gates ──▶ ANPR service ──▶ Ingest API ──▶ Redis Streams (8 shards)
@@ -115,7 +115,9 @@ Camera / SUMO gates ──▶ ANPR service ──▶ Ingest API ──▶ Redis 
 ```
 BAAZIGARS-SIH26127/
 ├── README.md                  ← you are here
-├── ARCHITECTURE.md            ← plain-words system guide for judges
+├── docs/
+│   └── architecture.md        ← plain-words system guide for judges
+├── submission/                ← DEMO.md (video link) + PRESENTATION.md
 ├── backend/                   ← event pipeline, workers, sim, schema, compose
 │   ├── api/                   ← REST + WebSocket hub (:8002)
 │   ├── ingest/                ← event intake (:8000)
@@ -130,7 +132,8 @@ BAAZIGARS-SIH26127/
 ├── frontend/                  ← React + Vite + MapLibre dashboard
 │   └── src/                   ← map, ticker, trajectory, analytics, admin
 ├── violation-tracking-system/ ← teammate YOLO subsystem (with weights)
-├── screenshots/               ← demo captures (§10)
+├── assets/
+│   └── screenshots/           ← demo captures (§10)
 └── presentation/              ← SIH idea deck (§8)
 ```
 
@@ -138,13 +141,15 @@ BAAZIGARS-SIH26127/
 
 ## 8. Final Presentation
 
-The SIH idea presentation is committed in this repo:
+The SIH idea presentation is committed in this repo (see [submission/PRESENTATION.md](submission/PRESENTATION.md) for format notes):
 
 [presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx](presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx)
 
 ---
 
 ## 9. Demo Video
+
+See [submission/DEMO.md](submission/DEMO.md) for the video brief.
 
 - 🎬 **Demo video (YouTube):** https://youtu.be/dd6dAWBIKj8
 - 📁 **Project Drive (videos & assets):** https://drive.google.com/drive/folders/13JUpZgb1FCb6qudszBcJbTX5blMlsHuS
@@ -153,7 +158,7 @@ The SIH idea presentation is committed in this repo:
 
 ## 10. Screenshots / Prototype Photos
 
-All demo captures live in [`screenshots/`](screenshots/) and are shown at the top of this README under [Demo](#demo--live-captures-from-the-running-system).
+All demo captures live in [`assets/screenshots/`](assets/screenshots/) and are shown at the top of this README under [Demo](#demo--live-captures-from-the-running-system).
 
 ---
 
