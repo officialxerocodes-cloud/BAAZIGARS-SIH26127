@@ -146,9 +146,8 @@ The SIH idea presentation is committed in this repo:
 
 ## 9. Demo Video
 
-A demo video is optional, but recommended.
-
-> _Demo video link (YouTube / Google Drive) will be added here._
+- 🎬 **Demo video (YouTube):** https://youtu.be/dd6dAWBIKj8
+- 📁 **Project Drive (videos & assets):** https://drive.google.com/drive/folders/13JUpZgb1FCb6qudszBcJbTX5blMlsHuS
 
 ---
 
