@@ -3,7 +3,9 @@
  
 This repository contains our submission for SIH 2026.
 
-**Idea Presentation:** [BAAZIGARS_SIH2026_PRESENTATION.pptx](presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx) ([Drive mirror](https://drive.google.com/drive/folders/1FEGNN16PdlVrmbFEZRm2nyR1OCy3jHvu))
+**Presentation:** [BAAZIGARS_SIH2026_PRESENTATION.pptx](presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx)
+
+**Presentation Google Drive Link:** ([Drive Link](https://drive.google.com/drive/folders/1FEGNN16PdlVrmbFEZRm2nyR1OCy3jHvu))
 
 **Demo Video:** https://youtu.be/dd6dAWBIKj8 ([Drive mirror](https://drive.google.com/drive/folders/13JUpZgb1FCb6qudszBcJbTX5blMlsHuS))
 
