@@ -84,3 +84,136 @@ Delhi CP–South Ex simulation, 60 virtual cameras.
 - **Dev Tools:** Python venv, Node.js 22, custom smoke-test and load-test scripts (`smoke.sh`, `replay_gun.py`, `fake_camera.py`)
 
 ---
+
+## 6. Architecture
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the full guide.
+
+```
+Camera / SUMO gates ──▶ ANPR service ──▶ Ingest API ──▶ Redis Streams (8 shards)
+   plate, cam, time      read + correct      validate + queue      3 consumer groups
+                                                     │
+                    ┌────────────────────────────────┼────────────────────────────────┐
+                    ▼                                ▼                                ▼
+              Matcher worker                   Analytics worker                   Alerts worker
+         fuzzy identity (edit≤1)          rollups, OD, congestion           blacklist + clone travel
+                    └────────────────────────────────┼────────────────────────────────┘
+                                                     ▼
+                                   TimescaleDB (Postgres + PostGIS)
+                                   one `reads` table drives everything
+                                                     │
+                              ┌──────────────────────┴──────────────────────┐
+                              ▼                                             ▼
+                    FastAPI (REST + WebSocket)                  React dashboard
+              search · trajectory · analytics · ack           live map · ticker · investigate
+```
+
+---
+
+## 7. Repository Structure
+
+```
+BAAZIGARS-SIH26127/
+├── README.md                  ← you are here
+├── ARCHITECTURE.md            ← plain-words system guide for judges
+├── backend/                   ← event pipeline, workers, sim, schema, compose
+│   ├── api/                   ← REST + WebSocket hub (:8002)
+│   ├── ingest/                ← event intake (:8000)
+│   ├── workers/               ← matcher / analytics / alerts
+│   ├── anpr_stub/             ← dev ANPR engine (real model swaps in later)
+│   ├── sim/                   ← SUMO Delhi runner + demand tooling
+│   ├── sql/                   ← TimescaleDB + PostGIS schema
+│   ├── scripts/               ← gates, smoke test, replay-gun, fixtures
+│   ├── tests/                 ← unit + contract tests
+│   ├── openapi/               ← API / ingest / WS contracts
+│   └── docker-compose.yml     ← full stack (Redis, Timescale, workers, sim)
+├── frontend/                  ← React + Vite + MapLibre dashboard
+│   └── src/                   ← map, ticker, trajectory, analytics, admin
+├── violation-tracking-system/ ← teammate YOLO subsystem (with weights)
+├── screenshots/               ← demo captures (§10)
+└── presentation/              ← SIH idea deck (§8)
+```
+
+---
+
+## 8. Final Presentation
+
+The SIH idea presentation is committed in this repo:
+
+[presentation/SIH2025-IDEA-Presentation-Format.pptx](presentation/SIH2025-IDEA-Presentation-Format.pptx)
+
+---
+
+## 9. Demo Video
+
+A demo video is optional, but recommended.
+
+> _Demo video link (YouTube / Google Drive) will be added here._
+
+---
+
+## 10. Screenshots / Prototype Photos
+
+All demo captures live in [`screenshots/`](screenshots/) and are shown at the top of this README under [Demo](#demo--live-captures-from-the-running-system).
+
+---
+
+## 11. Installation
+
+```bash
+git clone https://github.com/officialxerocodes-cloud/BAAZIGARS-SIH26127.git
+cd BAAZIGARS-SIH26127
+
+# Backend deps (Python 3.12) — from backend/
+cd backend
+python3.12 -m venv .venv-sumo
+.venv-sumo/bin/pip install -r requirements-sumo.txt
+
+# Frontend deps (Node 22) — from frontend/
+cd ../frontend
+npm ci
+```
+
+Requires: `podman compose` (or `docker compose`), Python 3.12, Node 22.
+
+---
+
+## 12. Run
+
+```bash
+cd backend
+cp .env.example .env   # safe defaults for local compose
+
+# Full stack: infra + pipeline + dashboard + dev ANPR engine
+podman compose up -d --build
+podman compose --profile anpr-stub up -d --build
+
+# Seed the 60 camera gates, then gate the pipeline
+PYTHONPATH=. .venv-sumo/bin/python scripts/generate_gates.py \
+  --net delhi.net.xml --out delhi_gates.json --n 60 --apply-db
+bash scripts/smoke.sh   # must print PASSED
+```
+
+Then run simulated traffic and open the dashboard:
+
+```bash
+PYTHONPATH=. .venv-sumo/bin/python -m sim.runner --duration 600 --rate 30 --seed 7
+# Dashboard → http://localhost:5173   API → http://localhost:8002
+```
+
+---
+
+## 13. Future Scope
+
+- Swap the ANPR stub for the trained `fast-alpr` engine behind the same `ANPR_CONTRACT.md` (no downstream changes).
+- Routed road distances for the impossible-travel check (haversine today).
+- Full WebSocket fan-out (viewport-scoped ticks, sampled event stream) beyond the current alerts push.
+- Real-footage `FileSource`/`RTSP` cameras and MJPEG hero tiles.
+- Clone split-track comparison view and blacklist admin polish.
+- Per-condition accuracy rig wired to the dashboard Accuracy page.
+
+---
+
+## Important
+
+Before submission, make sure the repository is accessible to reviewers. Do **not** upload passwords, API keys, access tokens, `.env` files containing secrets, or other confidential credentials. This repo ships `.env.example` files only — all secrets stay local.
