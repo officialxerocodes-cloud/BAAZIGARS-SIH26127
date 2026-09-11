@@ -3,7 +3,9 @@
  
 This repository contains our submission for SIH 2026.
 
-📊 **Idea Presentation:** [BAAZIGARS_SIH2026_PRESENTATION.pptx](presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx)
+**Idea Presentation:** [BAAZIGARS_SIH2026_PRESENTATION.pptx](presentation/BAAZIGARS_SIH2026_PRESENTATION.pptx)
+
+**Demo Video:** https://youtu.be/dd6dAWBIKj8 ([Drive mirror](https://drive.google.com/drive/folders/13JUpZgb1FCb6qudszBcJbTX5blMlsHuS))
 
 ---
  
@@ -151,8 +153,8 @@ The SIH idea presentation is committed in this repo (see [submission/PRESENTATIO
 
 See [submission/DEMO.md](submission/DEMO.md) for the video brief.
 
-- 🎬 **Demo video (YouTube):** https://youtu.be/dd6dAWBIKj8
-- 📁 **Project Drive (videos & assets):** https://drive.google.com/drive/folders/13JUpZgb1FCb6qudszBcJbTX5blMlsHuS
+- **Demo video (YouTube):** https://youtu.be/dd6dAWBIKj8
+- **Demo video folder (Drive mirror):** https://drive.google.com/drive/folders/13JUpZgb1FCb6qudszBcJbTX5blMlsHuS
 
 ---
 
