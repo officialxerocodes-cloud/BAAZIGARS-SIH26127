@@ -14,4 +14,4 @@ The **final SIH presentation (PPT/PPTX)** lives in this repository alongside the
 
 ## External presentation link (only if needed)
 
-_Not needed — the deck is in `presentation/` above._
+Drive mirror: https://drive.google.com/drive/folders/1FEGNN16PdlVrmbFEZRm2nyR1OCy3jHvu
